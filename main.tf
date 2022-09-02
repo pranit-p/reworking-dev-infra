@@ -59,7 +59,7 @@ resource "aws_instance" "frontend_server" {
   user_data                   = templatefile("${path.module}/frontend_script.sh.tpl", {})
   key_name                    = aws_key_pair.custom_key_pair.key_name
   vpc_security_group_ids      = [aws_security_group.servers_security_group.id]
-  subnet_id                   = aws_subnet.reworking_dev_public_subnet.id
+  subnet_id                   = aws_subnet.reworking_dev_public_subnet_first.id
   associate_public_ip_address = true
   tags = {
     Name = "Frontend-Server"
@@ -72,7 +72,7 @@ resource "aws_instance" "backend_server" {
   key_name                    = aws_key_pair.custom_key_pair.key_name
   iam_instance_profile        = aws_iam_instance_profile.backend_server_profile.name
   vpc_security_group_ids      = [aws_security_group.servers_security_group.id]
-  subnet_id                   = aws_subnet.reworking_dev_public_subnet.id
+  subnet_id                   = aws_subnet.reworking_dev_public_subnet_first.id
   user_data                   = templatefile("${path.module}/backend_script.sh.tpl", {})
   associate_public_ip_address = true
   tags = {

@@ -13,7 +13,7 @@ We primary use following services
 ### Steps
 
 #### Step-1
-Create one s3 bucket manually for storing backend of terraform 
+Create one s3 bucket manually for storing backend of terraform OR you can remove provide.tf file so terraform will not have any backend
 
 #### Step-2
 Replace name of S3 bucket in backend.tf file 

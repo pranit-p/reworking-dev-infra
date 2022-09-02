@@ -2,7 +2,7 @@ resource "aws_vpc" "reworking_dev_vpc" {
   cidr_block = "192.168.0.0/16"
 }
 
-resource "aws_subnet" "reworking_dev_public_subnet" {
+resource "aws_subnet" "reworking_dev_public_subnet_first" {
   vpc_id            = aws_vpc.reworking_dev_vpc.id
   cidr_block        = "192.168.0.0/24"
   availability_zone = "us-east-1a"
@@ -11,7 +11,7 @@ resource "aws_subnet" "reworking_dev_public_subnet" {
   }
 }
 
-resource "aws_subnet" "reworking_dev_private_subnet" {
+resource "aws_subnet" "reworking_dev_public_subnet_second" {
   vpc_id            = aws_vpc.reworking_dev_vpc.id
   cidr_block        = "192.168.1.0/24"
   availability_zone = "us-east-1b"
@@ -45,7 +45,12 @@ resource "aws_route_table" "reworking_dev_route_table" {
   }
 }
 
-resource "aws_route_table_association" "reworking_dev_route_table_association" {
-  subnet_id      = aws_subnet.reworking_dev_public_subnet.id
+resource "aws_route_table_association" "reworking_dev_route_table_association_subnet_first" {
+  subnet_id      = aws_subnet.reworking_dev_public_subnet_first.id
+  route_table_id = aws_route_table.reworking_dev_route_table.id
+}
+
+resource "aws_route_table_association" "reworking_dev_route_table_association_subnet_second" {
+  subnet_id      = aws_subnet.reworking_dev_public_subnet_second.id
   route_table_id = aws_route_table.reworking_dev_route_table.id
 }

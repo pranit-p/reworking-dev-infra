@@ -3,7 +3,7 @@ resource "aws_lb" "backend_load_balancer" {
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.servers_security_group.id]
-  subnets                    = [aws_subnet.reworking_dev_public_subnet.id, aws_subnet.reworking_dev_private_subnet.id]
+  subnets                    = [aws_subnet.reworking_dev_public_subnet_first.id, aws_subnet.reworking_dev_public_subnet_second.id]
   enable_deletion_protection = false
 }
 
