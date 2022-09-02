@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Media resources
+
+Resources:
+  MediaStorageBucker:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+      BucketName: media-storage-bucket-security-pranit
+      LoggingConfiguration:
+        DestinationBucketName: !Ref LoggingBucket
+        LogFilePrefix: files
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Purpose
+          Value: Storing images and videos
+        - Key: provisioned
+          Value: AWS CloudFormation
+      VersioningConfiguration:
+        Status: Enabled
+  LoggingBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: media-storage-logging-bucker-security-pranit
+      AccessControl: LogDeliveryWrite
+      LifecycleConfiguration:
+        Rules:
+          - Id: GlacierRule
+            Prefix: glacier
+            Status: Enabled
+            ExpirationInDays: 365
+            Transitions:
+              - TransitionInDays: 30
+                StorageClass: GLACIER
+      Tags:
+        - Key: Purpose
+          Value: Storing images and videos
+        - Key: provisioned
+          Value: AWS CloudFormation
+
+  EmployeeTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Employee
+      AttributeDefinitions:
+        -
+          AttributeName: EmployeeID
+          AttributeType: S
+      KeySchema:
+        -
+          AttributeName: EmployeeID
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
