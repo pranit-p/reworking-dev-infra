@@ -1,4 +1,4 @@
-### this repositiry manage reworking-dev infrastructure
+### This repositiry manage reworking-dev infrastructure
 
 We primary use following services 
 1. EC2 service
@@ -8,9 +8,9 @@ We primary use following services
 5. IAM 
 6. AWS Cloudformation 
 
-##Set Up
+## Set Up
 
-###Steps
+### Steps
 
 #### Step-1
 Create one s3 bucket manually for storing backend of terraform 
